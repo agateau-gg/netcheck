@@ -108,9 +108,20 @@ def main():
     )
 
     parser.add_argument(
-        "-r", "--repeat", type=int, default=1, help="Repeat tests. Defaults to 1"
+        "-r",
+        "--repeat",
+        type=int,
+        default=1,
+        metavar="N",
+        help="Repeat tests N times. Defaults to 1",
     )
-    parser.add_argument("-m", "--mode", action="append", choices=mode_choices)
+    parser.add_argument(
+        "-m",
+        "--mode",
+        action="append",
+        choices=mode_choices,
+        help="Mode to test. Can be used multiple times. Defaults to urllib",
+    )
     parser.add_argument("test_url", nargs="?", default=DEFAULT_TEST_URL)
 
     args = parser.parse_args()
