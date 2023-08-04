@@ -67,7 +67,9 @@ def run_test(test_url: str, mode: Mode) -> bool:
     send_get = SEND_GET_FUNCTIONS[mode]
 
     try:
-        logging.info("- Testing SSL",)
+        logging.info(
+            "- Testing SSL",
+        )
         status, content = send_get(SSL_TEST_URL)
         if status != 200:
             logging.error("Unexpected response. Status: %d", status)
@@ -120,10 +122,16 @@ def main():
     logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT, datefmt="%H:%M:%S")
 
     if not CACERT_PEM_PATH.exists() and Mode.REQUESTS_OWN_CA in modes:
-        logging.error("%s does not exist, can't use mode %s", str(CACERT_PEM_PATH), Mode.REQUESTS_OWN_CA.value)
+        logging.error(
+            "%s does not exist, can't use mode %s",
+            str(CACERT_PEM_PATH),
+            Mode.REQUESTS_OWN_CA.value,
+        )
         return 128
 
-    if not REQUESTS_AVAILABLE and (Mode.REQUESTS in modes or Mode.REQUESTS_OWN_CA in modes):
+    if not REQUESTS_AVAILABLE and (
+        Mode.REQUESTS in modes or Mode.REQUESTS_OWN_CA in modes
+    ):
         logging.error("`requests` is not available, can't test with %s", args.mode)
         return 128
 
