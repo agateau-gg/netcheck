@@ -7,6 +7,7 @@ import json
 import os
 import logging
 import sys
+import time
 
 from enum import Enum
 from pathlib import Path
@@ -79,7 +80,10 @@ def run_test(test_url: str, mode: Mode) -> bool:
         logging.info(json.dumps(dct, indent=2))
 
         logging.info("- Testing url=%s", test_url)
+        start = time.time()
         status, content = send_get(test_url)
+        duration = time.time() - start
+        logging.info("Request took %.1fs", duration)
     except Exception as e:
         logging.exception("Network error")
         return False
